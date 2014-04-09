@@ -33,7 +33,7 @@ var MyLayer = cc.LayerColor.extend({
     {
         this._super();
 
-        var backgroundColor = cc.c3b(55, 205, 150);
+        var backgroundColor = cc.c3b(26, 188, 156);
         this.setColor(backgroundColor);
         cc.log("This is color setted");
 
@@ -44,16 +44,20 @@ var MyLayer = cc.LayerColor.extend({
         var playButtonHover = cc.Sprite.create(s_playButton_hover);
         var playBtn = cc.MenuItemSprite.create(playButton, playButtonHover,null, this.click, this);
         playBtn.setPosition(centerPos);
-        var menu = cc.Menu.create(playBtn, null);
+        var menu = cc.Menu.create(playBtn, 0);
         menu.setPosition(cc.p(0, 0));
         cc.log("hello_world");
-        this.addChild(menu);
+        this.addChild(menu, 0);
+
+        var name = cc.LabelTTF.create("Freaky Math", "Time New", 32);
+        name.setPosition(cc.p(winsize.width/2, winsize.height/2 +100));
+        this.addChild(name, 1);
     },
 
     click:function()
     {
       var director = cc.Director.getInstance();
-      director.replaceScene(new playScene());
+      director.replaceScene(new PlayScene());
     }
 });
 

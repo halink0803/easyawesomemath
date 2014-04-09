@@ -1,20 +1,14 @@
 /**
- * Created by HaLink0803 on 4/8/2014.
+ * Created by HaLink0803 on 4/9/2014.
  */
-
-var Background = cc.LayerColor.extend ({
-
-    expression : null,
-    currentScore : null,
-
-    ctor: function(){
+var MainScene = cc.Layer.extend({
+    ctor:function(){
         this._super();
         this.init();
     },
     init:function(){
         this._super();
-        var red = cc.c3b(230, 44, 25);
-        this.setColor(red);
+
         var winsize = cc.Director.getInstance().getWinSize();
 
         var rightBtn = cc.Sprite.create(s_rightButton);
@@ -53,10 +47,6 @@ var Background = cc.LayerColor.extend ({
         this.currentScore.setPosition(cc.p());
         this.addChild(this.currentScore);
     },
-    changeColor:function(){
-        var num = Math.floor((Math.random()*4));
-        this.setColor(g_color[num]);
-    },
     changeExpression: function(){
         g_firstNumber = Math.floor((Math.random()*10)+1);
         g_secondNumber = Math.floor((Math.random()*10) + 1);
@@ -71,15 +61,15 @@ var Background = cc.LayerColor.extend ({
     rightClick: function(){
         cc.log("right_click");
 
+        var yellow = cc.c3b(255, 235, 104);
+        this.setColor(yellow);
         if(g_firstNumber + g_secondNumber != g_sumResult){
             var gameOver = new GameOver();
             var winsize = cc.Director.getInstance().getWinSize();
             var gameOverSize = gameOver.getContentSize();
             gameOver.setPosition(cc.p(winsize.width/2 - gameOverSize.width/2, winsize.height/2 - gameOverSize.height/2));
             this.addChild(gameOver, 5);
-            cc.log("End");
         } else{
-            this.changeColor();
             this.changeExpression();
             g_score = g_score + 1;
             this.updateScore();
@@ -87,6 +77,8 @@ var Background = cc.LayerColor.extend ({
     },
     wrongClick: function(){
         cc.log("wrong_click");
+        var sunFlower = cc.c3b(6, 21, 100);
+        this.setColor(sunFlower);
         if(g_firstNumber + g_secondNumber == g_sumResult){
             var gameOver = new GameOver();
             var winsize = cc.Director.getInstance().getWinSize();
@@ -94,7 +86,6 @@ var Background = cc.LayerColor.extend ({
             gameOver.setPosition(cc.p(winsize.width/2 - gameOverSize.width/2, winsize.height/2 - gameOverSize.height/2));
             this.addChild(gameOver, 5);
         } else {
-            this.changeColor();
             this.changeExpression();
             g_score = g_score+1;
             this.updateScore();

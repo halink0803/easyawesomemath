@@ -19,14 +19,12 @@ var Background = cc.LayerColor.extend ({
 
         var rightBtn = cc.Sprite.create(s_rightButton);
         var rightBtnHover = cc.Sprite.create(s_rightHover);
-        cc.log("button created");
 
         var wrongBtn = cc.Sprite.create(s_wrongButton);
         var wrongBtnHover = cc.Sprite.create(s_wrongHover);
 
         var menuButtonRight = cc.MenuItemSprite.create(rightBtn, rightBtnHover, null, this.rightClick, this);
         menuButtonRight.setPosition(cc.p(winsize.width/2 - 150, rightBtn.getContentSize().height/2));
-        cc.log("button added");
 
         var menuButtonWrong = cc.MenuItemSprite.create(wrongBtn, wrongBtnHover, null, this.wrongClick, this);
         menuButtonWrong.setPosition(cc.p(winsize.width/2 + 150, wrongBtn.getContentSize().height/2));
@@ -45,11 +43,11 @@ var Background = cc.LayerColor.extend ({
         var exp = g_firstNumber.toString()+ " + " + g_secondNumber.toString() + "\n"
             +"= " + g_sumResult.toString();
         exp.toUpperCase();
-        this.expression = cc.LabelTTF.create(exp, "Time New Roman", 50);
+        this.expression = cc.LabelTTF.create(exp, "Arial", 50);
         this.expression.setPosition(cc.p(winsize.width/2, winsize.height/2));
         this.addChild(this.expression);
 
-        this.currentScore = cc.LabelTTF.create("0", "Time New Roman", 50);
+        this.currentScore = cc.LabelTTF.create("0", "Arial", 50);
         this.currentScore.setPosition(cc.p());
         this.addChild(this.currentScore);
     },
@@ -69,7 +67,6 @@ var Background = cc.LayerColor.extend ({
         this.expression.setString(exp);
     },
     rightClick: function(){
-        cc.log("right_click");
 
         if(g_firstNumber + g_secondNumber != g_sumResult){
             var gameOver = new GameOver();
@@ -77,7 +74,6 @@ var Background = cc.LayerColor.extend ({
             var gameOverSize = gameOver.getContentSize();
             gameOver.setPosition(cc.p(winsize.width/2 - gameOverSize.width/2, winsize.height/2 - gameOverSize.height/2));
             this.addChild(gameOver, 5);
-            cc.log("End");
         } else{
             this.changeColor();
             this.changeExpression();
@@ -86,7 +82,6 @@ var Background = cc.LayerColor.extend ({
         }
     },
     wrongClick: function(){
-        cc.log("wrong_click");
         if(g_firstNumber + g_secondNumber == g_sumResult){
             var gameOver = new GameOver();
             var winsize = cc.Director.getInstance().getWinSize();

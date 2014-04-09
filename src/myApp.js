@@ -35,7 +35,6 @@ var MyLayer = cc.LayerColor.extend({
 
         var backgroundColor = cc.c3b(26, 188, 156);
         this.setColor(backgroundColor);
-        cc.log("This is color setted");
 
         var director = cc.Director.getInstance();
         var winsize = director.getWinSize();
@@ -46,10 +45,9 @@ var MyLayer = cc.LayerColor.extend({
         playBtn.setPosition(centerPos);
         var menu = cc.Menu.create(playBtn, 0);
         menu.setPosition(cc.p(0, 0));
-        cc.log("hello_world");
         this.addChild(menu, 0);
 
-        var name = cc.LabelTTF.create("Freaky Math", "Time New", 32);
+        var name = cc.LabelTTF.create("Freaky Math", "Arial", 32);
         name.setPosition(cc.p(winsize.width/2, winsize.height/2 +100));
         this.addChild(name, 1);
     },

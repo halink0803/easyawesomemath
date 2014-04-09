@@ -15,17 +15,17 @@ var GameOver = cc.LayerColor.extend({
         this.setColor(cc.c3b(85, 68, 47));
         var layerSize = this.getContentSize();
 
-        var gameOver = cc.LabelTTF.create("GAME OVER", "Time New Roman", 70);
+        var gameOver = cc.LabelTTF.create("GAME OVER", "Arial", 70);
         gameOver.setPosition(cc.p(layerSize.width/2, layerSize.height/2+50));
         this.addChild(gameOver);
 
         var strScore = "Your Score: " + g_score.toString();
-        var score = cc.LabelTTF.create(strScore, "Time New Roman", 40);
+        var score = cc.LabelTTF.create(strScore, "Arial", 40);
         score.setPosition(layerSize.width/2, layerSize.height/2);
         this.addChild(score);
 
         var strbest = "Best: " + g_best.toString();
-        var best = cc.LabelTTF.create(strbest, "Time New Roman", 40);
+        var best = cc.LabelTTF.create(strbest, "Arial", 40);
         best.setPosition(layerSize.width/2, layerSize.height/2 - 30);
         this.addChild(best);
 

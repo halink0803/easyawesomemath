@@ -41,7 +41,7 @@
             'src/resource.js',
             'src/myApp.js',
             'src/playScene.js',
-            'src/Background.js',
+            'src/background.js',
             'src/global.js',
             'src/GameOver.js'//add your own files in order here
         ]

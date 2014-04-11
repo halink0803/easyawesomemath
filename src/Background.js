@@ -73,6 +73,7 @@ var Background = cc.LayerColor.extend ({
             var winsize = cc.Director.getInstance().getWinSize();
             var gameOverSize = gameOver.getContentSize();
             gameOver.setPosition(cc.p(winsize.width/2 - gameOverSize.width/2, winsize.height/2 - gameOverSize.height/2));
+            this.removeAllChildren();
             this.addChild(gameOver, 5);
         } else{
             this.changeColor();
@@ -87,6 +88,7 @@ var Background = cc.LayerColor.extend ({
             var winsize = cc.Director.getInstance().getWinSize();
             var gameOverSize = gameOver.getContentSize();
             gameOver.setPosition(cc.p(winsize.width/2 - gameOverSize.width/2, winsize.height/2 - gameOverSize.height/2));
+            this.removeAllChildren();
             this.addChild(gameOver, 5);
         } else {
             this.changeColor();

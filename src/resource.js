@@ -12,6 +12,8 @@ var s_wrongButton = "wrong.png";
 var s_rightHover = "right_hover.png";
 var s_wrongHover = "wrong_hover.png";
 
+var s_loading = "loading.png";
+
 var g_resources = [
     //image
     {src:s_HelloWorld},
@@ -24,7 +26,8 @@ var g_resources = [
     {src:s_rightHover},
     {src:s_wrongHover},
     {src:s_optionButton},
-    {src:s_optionButton_hover}
+    {src:s_optionButton_hover},
+    {src:s_loading}
 
     //plist
 

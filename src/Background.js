@@ -6,16 +6,29 @@ var Background = cc.LayerColor.extend ({
 
     expression : null,
     currentScore : null,
+    clock: null,
 
     ctor: function(){
         this._super();
         this.init();
+        this.setKeyboardEnabled(true);
+        this.keyboard = {
+            left : false,
+            right : false
+        }
     },
     init:function(){
         this._super();
         var red = cc.c3b(230, 44, 25);
         this.setColor(red);
         var winsize = cc.Director.getInstance().getWinSize();
+
+        clock = cc.ProgressTimer.create(cc.Sprite.create(s_loading));
+        clock.setType(cc.PROGRESS_TIMER_TYPE_BAR);
+        clock.setPosition(winsize.width/2, winsize.height-6);
+        clock.setMidpoint(cc.p(0,1));
+        this.addChild(clock, 2);
+        clock.setPercentage(100);
 
         var rightBtn = cc.Sprite.create(s_rightButton);
         var rightBtnHover = cc.Sprite.create(s_rightHover);
@@ -38,7 +51,7 @@ var Background = cc.LayerColor.extend ({
         g_firstNumber = Math.floor((Math.random()*10)+1);
         g_secondNumber = Math.floor((Math.random()*10) + 1);
         var sum = g_firstNumber + g_secondNumber;
-        g_sumResult = Math.floor(Math.random()*6 + (sum -1));
+        g_sumResult = Math.floor((Math.random() * 2) +sum);
 
         var exp = g_firstNumber.toString()+ " + " + g_secondNumber.toString() + "\n"
             +"= " + g_sumResult.toString();
@@ -50,31 +63,36 @@ var Background = cc.LayerColor.extend ({
         this.currentScore = cc.LabelTTF.create("0", "Arial", 50);
         this.currentScore.setPosition(cc.p());
         this.addChild(this.currentScore);
+
+        this.scheduleUpdate();
     },
     changeColor:function(){
         var num = Math.floor((Math.random()*4));
         this.setColor(g_color[num]);
     },
     changeExpression: function(){
+        clock.setPercentage(100);
         g_firstNumber = Math.floor((Math.random()*10)+1);
         g_secondNumber = Math.floor((Math.random()*10) + 1);
         var sum = g_firstNumber + g_secondNumber;
-        g_sumResult = Math.floor(Math.random()*6 + (sum -1));
+        g_sumResult = Math.floor(Math.random()*2 + sum);
 
         var exp = g_firstNumber.toString()+ " + " + g_secondNumber.toString() + "\n"
             +"= " + g_sumResult.toString();
         exp.toUpperCase();
         this.expression.setString(exp);
     },
+    loadGameOver: function(){
+        var gameOver = new GameOver();
+        var winsize = cc.Director.getInstance().getWinSize();
+        var gameOverSize = gameOver.getContentSize();
+        gameOver.setPosition(cc.p(winsize.width/2 - gameOverSize.width/2, winsize.height/2 - gameOverSize.height/2));
+        this.removeAllChildren();
+        this.addChild(gameOver, 5);
+    },
     rightClick: function(){
-
         if(g_firstNumber + g_secondNumber != g_sumResult){
-            var gameOver = new GameOver();
-            var winsize = cc.Director.getInstance().getWinSize();
-            var gameOverSize = gameOver.getContentSize();
-            gameOver.setPosition(cc.p(winsize.width/2 - gameOverSize.width/2, winsize.height/2 - gameOverSize.height/2));
-            this.removeAllChildren();
-            this.addChild(gameOver, 5);
+            this.loadGameOver();
         } else{
             this.changeColor();
             this.changeExpression();
@@ -84,12 +102,7 @@ var Background = cc.LayerColor.extend ({
     },
     wrongClick: function(){
         if(g_firstNumber + g_secondNumber == g_sumResult){
-            var gameOver = new GameOver();
-            var winsize = cc.Director.getInstance().getWinSize();
-            var gameOverSize = gameOver.getContentSize();
-            gameOver.setPosition(cc.p(winsize.width/2 - gameOverSize.width/2, winsize.height/2 - gameOverSize.height/2));
-            this.removeAllChildren();
-            this.addChild(gameOver, 5);
+            this.loadGameOver();
         } else {
             this.changeColor();
             this.changeExpression();
@@ -100,5 +113,31 @@ var Background = cc.LayerColor.extend ({
     updateScore: function(){
         var score = g_score.toString();
         this.currentScore.setString(score);
+    },
+    update:function(){
+      var now = clock.getPercentage();
+      clock.setPercentage(now - 1.5);
+      if(now <= 0){
+        this.loadGameOver();
+        this.unscheduleUpdate();
+      }
+    },
+    onKeyDown : function(key){
+        switch (key) {
+            case cc.KEY.left :
+                this.rightClick();
+                break;
+            case cc.KEY.right :
+                this.wrongClick();
+                break;
+        }
+    },
+    onKeyUp : function(key){
+        switch (key) {
+            case cc.KEY.left :
+                break;
+            case cc.KEY.right :
+                break;
+        }
     }
 });

@@ -5,6 +5,10 @@ var GameOver = cc.LayerColor.extend({
     ctor:function(){
         this._super();
         this.init();
+        this.setKeyboardEnabled(true);
+        this.keyboard  = {
+            space : false
+        }
     },
     init:function(){
         this._super();
@@ -52,5 +56,16 @@ var GameOver = cc.LayerColor.extend({
     optionClick:function(){
         var director = cc.Director.getInstance();
         director.replaceScene(new MyScene());
+    },
+    onKeyDown:function(key){
+        if(key == cc.KEY.space){
+            this.keyboard.space = true;
+            this.replayClick();
+        }
+    },
+    onKeyUp:function(){
+        if(key == cc.KEY.space){
+            this.keyboard.space = false;
+        }
     }
 });

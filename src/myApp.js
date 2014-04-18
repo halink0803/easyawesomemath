@@ -28,6 +28,10 @@ var MyLayer = cc.LayerColor.extend({
     ctor:function()
     {
         this._super();
+        this.setKeyboardEnabled(true);
+        this.keyboardArrows = {
+            space : false
+        }
     },
     init:function()
     {
@@ -56,6 +60,17 @@ var MyLayer = cc.LayerColor.extend({
     {
       var director = cc.Director.getInstance();
       director.replaceScene(new PlayScene());
+    },
+    onKeyUp : function(key){
+        if(key == cc.KEY.space){
+            this.keyboardArrows.space = false;
+        }
+    },
+    onKeyDown:function(key){
+        if(key == cc.KEY.space){
+            this.keyboardArrows.space = true;
+            this.click();
+        }
     }
 });
 

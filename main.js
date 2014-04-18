@@ -65,7 +65,7 @@ var cocos2dApp = cc.Application.extend({
         }
 
         cc.FileUtils.getInstance().setSearchResolutionsOrder(resDirOrders);
-        director.setContentScaleFactor(screenSize.width / screenSize.width);
+        director.setContentScaleFactor(resourceSize.width / designSize.width);
         cc.EGLView.getInstance().setDesignResolutionSize(screenSize.width, screenSize.height, cc.RESOLUTION_POLICY.SHOW_ALL);
         cc.EGLView.getInstance().resizeWithBrowserSize(true);
 
